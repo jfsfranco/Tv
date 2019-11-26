@@ -174,10 +174,7 @@ This application can be improved in several aspects. Here I mention some of them
 ```
 php composer install
 ```
-- Run the migrations to create the database and the table
-```
-php artisan migrate
-```
+
 Configure the .env params to point to your database and your enviroment.
 The extra configurable parameters in the .env are the next:
 
@@ -192,6 +189,11 @@ CSV_DELIMITER=";"
 Example: "1 hour", "2 hours", "1 minutes", "10 minutes", "1 day"
 - CACHE_ENABLED: Allows you to enable or disable the cache
 - CSV_DELIMITER: You can change the delimiter in the csv
+
+- Run the migrations to create the table necessary
+```
+php artisan migrate
+```
 
 If everything has gone correctly you will have your lumen application running
 
