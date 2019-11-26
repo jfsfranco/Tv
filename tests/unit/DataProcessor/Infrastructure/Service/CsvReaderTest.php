@@ -6,9 +6,5 @@ use Codeception\PHPUnit\TestCase;
 
 class CsvReaderTest extends TestCase
 {
-
-    public function testCreateScoresFromCsv()
-    {
-        $this->assertEquals(true, true);
-    }
+//TODO
 }

@@ -18,6 +18,8 @@ ADDING data entry point
 ```
 add/scores
 ```
+I have attached in exampleCSV folder an example of the CSV used for the application.
+
 This entry point is used to introduce data in tha database application. 
 This will be added to the response.
 
@@ -46,6 +48,8 @@ It wasn't added a command-bus, but it could be added to writer command in order 
 ├── Console
 │   ├── Commands
 │   └── Kernel.php
+├── Exceptions
+│   └── Handler.php
 ├── Http
 │   ├── Controllers
 │   │   ├── Controller.php
@@ -67,10 +71,13 @@ It wasn't added a command-bus, but it could be added to writer command in order 
 │   │   │   ├── Exception
 │   │   │   │   ├── ErrorReadingFileException.php
 │   │   │   │   ├── FileNotExistException.php
+│   │   │   │   ├── InvalidDataException.php
 │   │   │   │   ├── InvalidFileException.php
 │   │   │   │   └── InvalidFileFormatException.php
 │   │   │   ├── Factory
-│   │   │   │   └── CsvProcessorErrorFactory.php
+│   │   │   │   ├── CsvProcessorErrorFactory.php
+│   │   │   │   ├── ScoreFactoryInterface.php
+│   │   │   │   └── ScoreFactory.php
 │   │   │   └── Service
 │   │   │       ├── CsvReader.php
 │   │   │       └── FileValidator.php
@@ -155,7 +162,7 @@ This application can be improved in several aspects. Here I mention some of them
 - Adding Swagger for the API
 - Use the Exceptions/Handler instead having the factories for the responses
 - We can retrieve more information from the external API
-
+- There are some unit tests to finish
 
 # Configuration
 
@@ -171,8 +178,8 @@ php composer install
 ```
 php artisan migrate
 ```
-
-The configurable parameters in the .env are the next:
+Configure the .env params to point to your database and your enviroment.
+The extra configurable parameters in the .env are the next:
 
 ```
 API_TVMAZE_URL=http://api.tvmaze.com/search/shows?q=

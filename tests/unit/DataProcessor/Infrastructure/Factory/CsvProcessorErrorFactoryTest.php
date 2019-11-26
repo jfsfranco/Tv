@@ -31,7 +31,6 @@ class CsvProcessorErrorFactoryTest extends TestCase
         $this->assertEquals($expectedString, $response->getData());
     }
 
-
     public function ErrorExceptionProvider(): array
     {
         return [
