@@ -226,3 +226,8 @@ php vendor/bin/codecept run functional
 # Problems that you could have
 - No permission to write in the cache folder
 - No permission to write in the log folder
+
+You can solve it giving correct permissions with 
+```
+chmod
+```
