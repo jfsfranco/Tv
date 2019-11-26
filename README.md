@@ -197,7 +197,7 @@ php artisan migrate
 
 If everything has gone correctly you will have your lumen application running
 
-If you have any problems, please do not hesitate to contact me at jesus.fs.franco@gmail.com
+If you have any problems, please do not hesitate to contact me
 
 ## Running the tests
 
