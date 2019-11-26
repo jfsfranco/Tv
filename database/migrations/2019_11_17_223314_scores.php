@@ -28,6 +28,6 @@ class Scores extends Migration
      */
     public function down()
     {
-        Schema::drop('score');
+        Schema::drop('scores');
     }
 }
