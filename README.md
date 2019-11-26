@@ -1,10 +1,10 @@
-#Tv API Application
+# Tv API Application
 
 This application has 2 main funtionalities:
 - Process csv files to storage data
 - Request information about external sources 
 
-##Architecture
+## Architecture
 
 The application has 3 entry points
 
@@ -37,11 +37,6 @@ They have been started from a request from controllers but they could be started
 The command and the query have primitive types. They are independent. 
 
 It wasn't added a command-bus, but it could be added to writer command in order to have an asyncronous process that allow the application process hugh amount of information.
-
-
-
-
-
 
 ```
 ├── Configuration
@@ -150,26 +145,47 @@ It wasn't added a command-bus, but it could be added to writer command in order 
     └── EventServiceProvider.php
 ```
 
-#Improvals
+# Improvals
 This application can be improved in several aspects. Here I mention some of them. 
 - Validate the csv file against the API. 
 - Don't introduce repeated information in the database.
 - Don't introduce information which storaged information has date posterior.
 - Helth check for the database
 - Adding Swagger for the API
- 
+- Use the Exceptions/Handler instead having the factories for the responses
+- We can retrieve more information from the external API
 
 
-#Configuration
+# Configuration
 
-###Cache
+## Instructions for start the application
 
-
-#Run 
+- Pull the repository
+- Unzip the application
+- If you have composer and php run
 ```
 php composer install
 ```
-If everything have gone correctly you will have your symfony application running
+- Run the migrations to create the database and the table
+```
+php artisan migrate
+```
+
+The configurable params in the .env are the next:
+
+```
+API_TVMAZE_URL=http://api.tvmaze.com/search/shows?q=
+CACHE_TIME="10 minutes"
+CACHE_ENABLED=true
+CSV_DELIMITER=";"
+```
+- API_TVMAZE_URL is the url to the external API
+- CACHE_TIME is the time that you can configure your cache working
+Example: "1 hour" "2 hours" "1 minutes" "10 minutes" "1 day"
+- CACHE_ENABLED: Allow you to enable or disable the cache
+- CSV_DELIMITER: You can change the delimiter in the csv
+
+If everything have gone correctly you will have your lumen application running
 
 If you have any problem, please contact me: jesus.fs.franco@gmail.com
 
@@ -184,15 +200,15 @@ To execute then, once you have your application running in you local machine, ex
 php vendor/bin/codecept run unit
 ```
 
-Take in consideration that I have created one functional test. I could create all the scenarios. 
-
-```
-php vendor/bin/codecept run functional
-```
-
 You can run also the coverage using 
 
 ```
 php vendor/bin/codecept run unit --coverage
 ```
 
+
+Take in consideration that I have created one functional test. I could create all the scenarios. 
+
+```
+php vendor/bin/codecept run functional
+```
