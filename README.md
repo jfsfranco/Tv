@@ -1,8 +1,8 @@
 # Tv API Application
 
 This application has 2 main funtionalities:
-- Process csv files to storage data
-- Request information about external sources 
+- Process csv files to store data
+- Request information from an external API 
 
 ## Architecture
 
@@ -12,13 +12,14 @@ API Entry point:
 ```
 /?q=nameOfShow
 ```
-Which it is providing a json as a response with the information requested to the external API and addiotional information in the case that some score would be storaged in the database
+This is providing a json as a response with the information requested to the external API and additional information in the case that some score would be stored in the database
 
 ADDING data entry point
 ```
 add/scores
 ```
-This entry point is used to introduced data in tha database application. This will be added to the response.
+This entry point is used to introduce data in tha database application. 
+This will be added to the response.
 
 
 Healthcheck entry point:
@@ -29,14 +30,14 @@ This health check is used to check if the application is running.
 
 The application has been created using hexagonal architecture and the architecture pattern of CQRS.
 
-We have 2 bundle context, both of then are in the Module folder.
-The intention of separate both modules is because one of them it is dedicated to writing operations and the other one for lecture. 
-They can be promoted to be 2 separated microservices. 
+We have a 2 bundle context, both of them are in the Module folder.
+The intention of separating both modules is because one of them is dedicated to writing operations and the other one for lecture. 
+They can be promoted to be 2 separate microservices. 
 The command and the query are independent of the type of order that start them. 
 They have been started from a request from controllers but they could be started from another source. 
 The command and the query have primitive types. They are independent. 
 
-It wasn't added a command-bus, but it could be added to writer command in order to have an asyncronous process that allow the application process hugh amount of information.
+It wasn't added a command-bus, but it could be added to writer command in order to have an asyncronous process that allows the application to process huge amounts of information.
 
 ```
 ├── Configuration
@@ -145,12 +146,12 @@ It wasn't added a command-bus, but it could be added to writer command in order 
     └── EventServiceProvider.php
 ```
 
-# Improvals
+# Improvments
 This application can be improved in several aspects. Here I mention some of them. 
 - Validate the csv file against the API. 
 - Don't introduce repeated information in the database.
-- Don't introduce information which storaged information has date posterior.
-- Helth check for the database
+- Don't introduce information which stored information has an earlier date.
+- Health check for the database
 - Adding Swagger for the API
 - Use the Exceptions/Handler instead having the factories for the responses
 - We can retrieve more information from the external API
@@ -158,11 +159,11 @@ This application can be improved in several aspects. Here I mention some of them
 
 # Configuration
 
-## Instructions for start the application
+## Instructions to start the application
 
-- Pull the repository
+- Clone the repository
 - Unzip the application
-- If you have composer and php run
+- If you have composer and php run the next command:
 ```
 php composer install
 ```
@@ -171,7 +172,7 @@ php composer install
 php artisan migrate
 ```
 
-The configurable params in the .env are the next:
+The configurable parameters in the .env are the next:
 
 ```
 API_TVMAZE_URL=http://api.tvmaze.com/search/shows?q=
@@ -181,33 +182,33 @@ CSV_DELIMITER=";"
 ```
 - API_TVMAZE_URL is the url to the external API
 - CACHE_TIME is the time that you can configure your cache working
-Example: "1 hour" "2 hours" "1 minutes" "10 minutes" "1 day"
-- CACHE_ENABLED: Allow you to enable or disable the cache
+Example: "1 hour", "2 hours", "1 minutes", "10 minutes", "1 day"
+- CACHE_ENABLED: Allows you to enable or disable the cache
 - CSV_DELIMITER: You can change the delimiter in the csv
 
-If everything have gone correctly you will have your lumen application running
+If everything has gone correctly you will have your lumen application running
 
-If you have any problem, please contact me: jesus.fs.franco@gmail.com
+If you have any problems, please do not hesitate to contact me at jesus.fs.franco@gmail.com
 
 ## Running the tests
 
-I have create the unit test and functional test for codeception. 
-They can be easily migrate to another framework or system. 
+I have created the unit test and functional test for codeception. 
+They can be easily migrated to another framework or system. 
 
-To execute then, once you have your application running in you local machine, execute:
+To execute them, once you have your application running in your local machine, execute:
 
 ```
 php vendor/bin/codecept run unit
 ```
 
-You can run also the coverage using 
+You can also run the coverage using 
 
 ```
 php vendor/bin/codecept run unit --coverage
 ```
 
 
-Take in consideration that I have created one functional test. I could create all the scenarios. 
+Take into consideration that I have created one functional test. I could create all the scenarios. 
 
 ```
 php vendor/bin/codecept run functional
