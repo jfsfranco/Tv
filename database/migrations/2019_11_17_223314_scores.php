@@ -13,7 +13,7 @@ class Scores extends Migration
      */
     public function up()
     {
-            Schema::create('score', function (Blueprint $table) {
+            Schema::create('scores', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name_of_show');
             $table->string('brand_fit_score');
