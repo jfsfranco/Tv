@@ -11,10 +11,11 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+//$router->get('/', function () use ($router) {
+//    return $router->app->version();
+//});
 
-$router->get('/jesus', function () use ($router) {
-    return $router->app->version();
-});
+
+$router->get('/', ['uses' => 'TvShowController']);
+$router->post('/add/scores', ['uses' => 'CSVProcessorController']);
+$router->get('/healthCheck', ['uses' => 'HealthCheckController']);

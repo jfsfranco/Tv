@@ -1,5 +1,7 @@
 <?php
 
+use App\TvShow\Application\BrandFitScoreDecorator;
+
 require_once __DIR__.'/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
@@ -21,10 +23,9 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+ $app->withFacades();
 
-// $app->withEloquent();
-
+$app->withEloquent();
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -76,9 +77,73 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+//Load Configuration
+$app->register(App\Providers\AppServiceProvider::class);
+
+$app->bind('App\Configuration\APIConfiguration', function () {
+    return new App\Configuration\APIConfiguration(
+        env('API_TVMAZE_URL'),
+        env('CACHE_TIME'),
+        env('CACHE_ENABLED'),
+        env('CSV_DELIMITER')
+    );
+});
+
+$app->bind('App\DataProcessor\Application\Configuration\DataProcessorConfiguration', function() {
+    return new App\DataProcessor\Infrastructure\Configuration\Configuration(
+        new App\Configuration\APIConfiguration(
+            env('API_TVMAZE_URL'),
+            env('CACHE_TIME'),
+            env('CACHE_ENABLED'),
+            env('CSV_DELIMITER')
+        )
+    );
+});
+
+/* CSVProcessorController */
+$app->bind(
+    'App\DataProcessor\Application\Service\FileValidator',
+    'App\DataProcessor\Infrastructure\Service\FileValidator'
+);
+
+$app->bind(
+    'App\DataProcessor\Application\Service\CsvReader', function() {
+        return new App\DataProcessor\Infrastructure\Service\CsvReader(
+        new \App\DataProcessor\Application\Factory\ScoreFactory()
+    );
+});
+
+$app->bind(
+    'App\DataProcessor\Application\Factory\CsvProcessorErrorFactory',
+    'App\DataProcessor\Infrastructure\Factory\CsvProcessorErrorFactory'
+);
+
+$app->bind(
+    'App\DataProcessor\Domain\Repository\ScoreRepository',
+    'App\DataProcessor\Infrastructure\Repository\ScoreEloquentRepository'
+);
+
+/* TvShowController */
+$app->bind('App\TvShow\Application\QueryHandler\QueryHandler', function () {
+    return new App\TvShow\Application\QueryHandler\TvShowQueryHandler(
+        new \App\TvShow\Infrastructure\Adapter\CacheProxy(env("CACHE_ENABLED"), new \Illuminate\Support\Facades\Cache()),
+        new \App\TvShow\Infrastructure\Client\TvMazeClient(
+            new \GuzzleHttp\Client(), new \App\TvShow\Application\ValueObject\Url(env("API_TVMAZE_URL"))
+        ),
+        new \App\TvShow\Infrastructure\Configuration\Configuration(
+            env("CACHE_TIME"),
+            env("CACHE_ENABLED")
+        ),
+        new \App\TvShow\Application\Searcher\TvShowSearcher(),
+        new \App\TvShow\Infrastructure\Repository\ScoreEloquentRepository(new \App\TvShow\Domain\Score()),
+        new \App\TvShow\Application\Decorator\ResponseDecorator()
+    );
+});
+
+$app->bind(
+    'App\TvShow\Application\Factory\ErrorFactory',
+    'App\TvShow\Infrastructure\Factory\ErrorResponseFactory'
+);
 
 /*
 |--------------------------------------------------------------------------
