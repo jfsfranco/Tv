@@ -222,3 +222,7 @@ Take into consideration that I have created one functional test. I could create 
 ```
 php vendor/bin/codecept run functional
 ```
+
+# Problems that you could have
+- No permission to write in the cache folder
+- No permission to write in the log folder
