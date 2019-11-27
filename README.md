@@ -123,7 +123,6 @@ It wasn't added a command-bus, but it could be added to writer command in order 
 │       │   ├── QueryHandler
 │       │   │   ├── QueryHandler.php
 │       │   │   └── TvShowQueryHandler.php
-│       │   ├── Searcher
 │       │   │   ├── TvShowSearcherInterface.php
 │       │   │   └── TvShowSearcher.php
 │       │   └── ValueObject
@@ -157,7 +156,7 @@ It wasn't added a command-bus, but it could be added to writer command in order 
 This application can be improved in several aspects. Here I mention some of them. 
 - Validate the csv file against the API. 
 - Don't introduce repeated information in the database.
-- Don't introduce information which stored information has an earlier date.
+- Don't introduce information which stored information has an later date.
 - Health check for the database
 - Adding Swagger for the API
 - Use the Exceptions/Handler instead having the factories for the responses
